@@ -86,10 +86,36 @@ class IndexTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let headerView = view as! UITableViewHeaderFooterView
-        headerView.textLabel?.textColor = UIColor.orange
+        headerView.textLabel?.textColor = UIColor.red
         headerView.textLabel?.font = UIFont(name: "Avenir", size: 25.0)
         
     }
+    
+    // MARK: Cell 淡入
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        // 淡入
+        
+        cell.alpha = 0
+        UIView.animate(withDuration: 1.0, animations: {cell.alpha = 1})
+        
+        //  旋轉特效
+        /*
+        let rotationAngleInRadius = 90.0 * CGFloat(M_PI/180.0)
+        let rotationTransform = CATransform3DMakeRotation(rotationAngleInRadius, 0, 0, 1)
+        cell.layer.transform = rotationTransform
+        UIView.animate(withDuration: 1.0, animations: {cell.layer.transform = CATransform3DIdentity})
+        */
+        // 飛入
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 100, 0)
+        cell.layer.transform = rotationTransform
+        UIView.animate(withDuration: 1.0, animations: {cell.layer.transform = CATransform3DIdentity})
+
+        
+        
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
